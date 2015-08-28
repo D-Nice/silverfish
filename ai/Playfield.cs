@@ -1735,7 +1735,7 @@
             bool placebuff = false;
             if (card.name == CardDB.cardName.flametonguetotem || card.name == CardDB.cardName.direwolfalpha)
             {
-                if (this.ownMinions.Count == 1) return 7; //make placebuffs always move right if only one minion, to take advantage of minions from abilites/spells
+                if (this.ownMinions.Count <= 2) return 1; //make placebuffs always move right if only one minion, to take advantage of minions from abilites/spells
                 placebuff = true;
                 if (card.name == CardDB.cardName.flametonguetotem) cardIsBuffer = 2;
                 if (card.name == CardDB.cardName.direwolfalpha) cardIsBuffer = 1;

@@ -1186,6 +1186,11 @@ namespace HREngine.Bots
                     return 0;
                 }
 
+                if (this.DamageTargetDatabase.ContainsKey(name) || this.DamageAllDatabase.ContainsKey(name))
+                {
+                    return 0;
+                }
+
                 if (this.buffingMinionsDatabase.ContainsKey(name))
                 {
                     if (name == CardDB.cardName.timberwolf || name == CardDB.cardName.houndmaster)
@@ -1260,6 +1265,16 @@ namespace HREngine.Bots
             }
 
             //lethal end########################################################
+            
+            //Encourage shaman to play his ability, before playing damaging spell, for chance of getting +1 dmg from wind totem
+            if (!lethal && p.ownAbilityReady == true && p.ownHeroName == HeroEnum.shaman)
+            {
+                if (this.DamageAllDatabase.ContainsKey(name) || 
+                    this.DamageAllEnemysDatabase.ContainsKey(name) ||
+                    this.DamageRandomDatabase.ContainsKey(name) ||
+                    this.DamageTargetSpecialDatabase.ContainsKey(name) ||
+                    this.DamageTargetDatabase.ContainsKey(name)) return 10;
+            }
 
             if (card.name == CardDB.cardName.unstableportal && p.owncards.Count <= 9) return -15;
 
@@ -1362,8 +1377,8 @@ namespace HREngine.Bots
 
             if (name == CardDB.cardName.druidoftheflame)
             {
-                if (p.enemyMinions.Count > 0 && choice == 2) return 40;
-                if (p.enemyMinions.Count == 0 && choice == 1) return 40;
+                if (p.enemyMinions.Count > 0 && choice == 1) return 40;
+                if (p.enemyMinions.Count == 0 && choice == 2) return 40;
             }
 
             if (name == CardDB.cardName.gangup && target!=null)
