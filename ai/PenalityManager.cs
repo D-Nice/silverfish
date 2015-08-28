@@ -1186,7 +1186,7 @@ namespace HREngine.Bots
                     return 0;
                 }
 
-                if (this.DamageTargetDatabase.ContainsKey(name) || this.DamageAllDatabase.ContainsKey(name))
+                if (this.DamageTargetDatabase.ContainsKey(name) || this.DamageAllDatabase.ContainsKey(name) )
                 {
                     return 0;
                 }
@@ -1274,6 +1274,14 @@ namespace HREngine.Bots
                     this.DamageRandomDatabase.ContainsKey(name) ||
                     this.DamageTargetSpecialDatabase.ContainsKey(name) ||
                     this.DamageTargetDatabase.ContainsKey(name)) return 10;
+            }
+
+            if (p.ownMaxMana == 1 )
+            {
+                if (card.name == CardDB.cardName.lepergnome) return -10;
+                if (card.name == CardDB.cardName.faeriedragon) return -20;
+                if (card.Attack >= 3 && card.Health >= 2) return -20;
+                
             }
 
             if (card.name == CardDB.cardName.unstableportal && p.owncards.Count <= 9) return -15;
@@ -2206,11 +2214,12 @@ namespace HREngine.Bots
             DamageAllEnemysDatabase.Add(CardDB.cardName.holynova, 2);
             DamageAllEnemysDatabase.Add(CardDB.cardName.lightningstorm, 2);
             DamageAllEnemysDatabase.Add(CardDB.cardName.stomp, 1);
-            //DamageAllEnemysDatabase.Add(CardDB.cardName.madbomber, 1);
-            //DamageAllEnemysDatabase.Add(CardDB.cardName.madderbomber, 1); //Disabled due to having other checks in place
+
             DamageAllEnemysDatabase.Add(CardDB.cardName.swipe, 4);//1 to others
             DamageAllEnemysDatabase.Add(CardDB.cardName.bladeflurry, 1);
 
+
+            DamageAllEnemysDatabase.Add(CardDB.cardName.madbomber, 1);
             DamageRandomDatabase.Add(CardDB.cardName.goblinblastmage, 1);
             DamageRandomDatabase.Add(CardDB.cardName.flamecannon, 4);
             DamageRandomDatabase.Add(CardDB.cardName.arcanemissiles, 1);
